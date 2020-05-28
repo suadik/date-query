@@ -11,12 +11,12 @@ const startDate = year => moment(year).startOf('month').format("YYYY-MM-DD");
 const endDate = year => moment(year).add(11, 'months').endOf("month").format("YYYY-MM-DD");
 
 const getMonth = arg => {
-
     if (typeof arg !== 'string') {
         throw { error: 'arg should be a string' };
     }
     return arg.split(' ').length > 1 ? arg.split(' ')[0] : undefined;
 }
+
 const getYear = arg => { 
     if (typeof arg !== 'string') {
         throw { error: 'arg should be a string' };
@@ -68,11 +68,68 @@ dq.get = {
                 }
             },
             from: fromDate => {
+                let fromRslt = []
+                let fromDaysInYear = 0;
+                if (getMonth(fromDate) !== undefined) {
+                    
+                    for (let a = months.indexOf(getMonth(fromDate)) + 1; a <= 12; a++) {
+                        fromDaysInYear += moment(`${getYear(fromDate)} - 0${a}`, "YYYY-MM").daysInMonth();
+                    }
+
+                    for (let i = 1; i < fromDaysInYear; i += 1) {
+                        if (new Date(new Date(new Date(startDate(getYear(fromDate))).setMonth(months.indexOf(getMonth(fromDate)))).setDate(i)).getDay() === days.indexOf(day)) {
+                            fromRslt.push(moment(new Date(new Date(new Date(startDate(getYear(fromDate))).setMonth(months.indexOf(getMonth(fromDate)))).setDate(i))).format('YYYY-MM-DD'));
+                        }
+                    }
+
+                } else {
+                    for (let a = 1; a <= 12; a++) {
+                        fromDaysInYear += moment(`${getYear(fromDate)} - 0${a}`, "YYYY-MM").daysInMonth();
+                    }
+                    for (let i = 1; i < fromDaysInYear; i += 1) {
+                        if (new Date(new Date(startDate(getYear(fromDate))).setDate(i)).getDay() === days.indexOf(day)) {
+                            fromRslt.push(moment(new Date(new Date(startDate(getYear(fromDate))).setDate(i))).format('YYYY-MM-DD'));
+                        }
+                    }
+                }
 
                 return {
                     to: toDate => {
+                        if(getYear(fromDate) > getYear(toDate)){
+                            throw {error: 'Invalid date range'}
+                        }
+                        let toRslt = []
+                        let toDaysInYear = 0;
+                        if (getMonth(toDate) !== undefined) {
 
-                        console.log(getMonth(fromDate), '', getYear(fromDate))
+                            if (getYear(toDate) === getYear(fromDate)) {
+                                if (months.indexOf(getMonth(fromDate)) > months.indexOf(getMonth(toDate))) {
+                                    throw {error: 'Invalid date range'}
+                                }
+                            }
+                            
+                            for (let a = 1; a <= (12 - (months.length - (months.indexOf(getMonth(toDate)) + 1)) ); a++) {
+                                toDaysInYear += moment(`${getYear(toDate)} - 0${months.indexOf(getMonth(toDate)) + 1}`, "YYYY-MM").daysInMonth();
+                            }
+
+                            for (let i = 1; i < toDaysInYear; i += 1) {
+                                if (new Date(new Date(startDate(getYear(toDate))).setDate(i)).getDay() === days.indexOf(day)) {
+                                    toRslt.push(moment(new Date(new Date(startDate(getYear(toDate))).setDate(i))).format('YYYY-MM-DD'));
+                                }
+                            }
+
+                        } else {
+                            for (let a = 1; a <= 12; a++) {
+                                toDaysInYear += moment(`${getYear(toDate)} - 0${a}`, "YYYY-MM").daysInMonth();
+                            }
+                            for (let i = 1; i < toDaysInYear; i += 1) {
+                                if (new Date(new Date(startDate(getYear(toDate))).setDate(i)).getDay() === days.indexOf(day)) {
+                                    toRslt.push(moment(new Date(new Date(startDate(getYear(toDate))).setDate(i))).format('YYYY-MM-DD'));
+                                }
+                            }
+                        }
+                        
+                        return new Set([...fromRslt.concat(toRslt)])
                     }
                 }
             }
@@ -80,6 +137,6 @@ dq.get = {
     }
 }
 
-let a = dq.get.all('sun').from(2020).to('2019')
+let a = dq.get.all('thu').from('jan 2020').to('may 2020')
 console.log(a)
 module.exports = dq;

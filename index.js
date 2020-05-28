@@ -9,8 +9,20 @@ const months = ['jan','feb','mar','apr','may','jun','jul','aug','sep','oct','nov
 
 const startDate = year => moment(year).startOf('month').format("YYYY-MM-DD");
 const endDate = year => moment(year).add(11, 'months').endOf("month").format("YYYY-MM-DD");
-const getMonth = arg => arg.split(' ').length > 1 ? arg.split(' ')[0] : undefined;
-const getYear = arg => arg.split(' ').length > 1 ? arg.split(' ')[1] : arg.split(' ').length === 1 ? arg.split(' ')[0] : arg.split(' ')[0];
+
+const getMonth = arg => {
+
+    if (typeof arg !== 'string') {
+        throw { error: 'arg should be a string' };
+    }
+    return arg.split(' ').length > 1 ? arg.split(' ')[0] : undefined;
+}
+const getYear = arg => { 
+    if (typeof arg !== 'string') {
+        throw { error: 'arg should be a string' };
+    }
+    return arg.split(' ').length > 1 ? arg.split(' ')[1] : arg.split(' ').length === 1 ? arg.split(' ')[0] : arg.split(' ')[0];
+}
 
 dq.get = {
     all: day => {
@@ -30,17 +42,6 @@ dq.get = {
         return {
             in: arg => {
                 
-                let month = arg.split(' ').length > 1 ? arg.split(' ')[0] : undefined
-                let year = arg.split(' ').length > 1 ? arg.split(' ')[1] : arg.split(' ').length === 1 ? arg.split(' ')[0] : arg.split(' ')[0]
-                
-                if(typeof getYear(arg) !== 'string'){
-                    throw { error: 'year should be a string' };
-                }
-
-                if (getMonth(arg) && typeof getMonth(arg) !== 'string') {
-                    throw { error: 'month should be a string' };
-                }
-
                 if(getMonth(arg) !== undefined){
                     let daysInMnth = moment(`${getYear(arg)} - 0${months.indexOf(getMonth(arg)) + 1}`, "YYYY-MM").daysInMonth();
                     let rslt = []
@@ -68,23 +69,8 @@ dq.get = {
             },
             from: fromDate => {
 
-                if (typeof getYear(fromDate) !== 'string') {
-                    throw { error: 'year should be a string' };
-                }
-
-                if (getMonth(fromDate) && typeof getMonth(fromDate) !== 'string') {
-                    throw { error: 'month should be a string' };
-                }
-
                 return {
                     to: toDate => {
-                        if (typeof getYear(toDate) !== 'string') {
-                            throw { error: 'year should be a string' };
-                        }
-
-                        if (getMonth(toDate) && typeof getMonth(toDate) !== 'string') {
-                            throw { error: 'month should be a string' };
-                        }
 
                         console.log(getMonth(fromDate), '', getYear(fromDate))
                     }
@@ -94,6 +80,6 @@ dq.get = {
     }
 }
 
-let a = dq.get.all('sun').from('2020').to('2019')
+let a = dq.get.all('sun').from(2020).to('2019')
 console.log(a)
 module.exports = dq;

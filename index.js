@@ -137,6 +137,6 @@ dq.get = {
     }
 }
 
-let a = dq.get.all('thu').from('jan 2020').to('may 2020')
+let a = dq.get.all('wed').in('feb 2020')
 console.log(a)
 module.exports = dq;

@@ -28,16 +28,18 @@ const endDate = (month,year) => moment(year).add(month, 'months').endOf("month")
 dq.get = {
     all: day => {
 
-        if(typeof day !== 'string'){
-            throw { error: 'day should be a string'};
-        }
+        if(day){
+            if (typeof day !== 'string') {
+                throw { error: 'day should be a string' };
+            }
 
-        if (day.length !== 3) {
-            throw { error: 'day should be three characters' };
-        }
+            if (day.length !== 3) {
+                throw { error: 'day should be three characters' };
+            }
 
-        if (!days.includes(day)) {
-            throw { error: 'invalid day provided, day format should be ie "tue"' };
+            if (!days.includes(day)) {
+                throw { error: 'invalid day provided, day format should be ie "tue"' };
+            }
         }
 
         return {
@@ -76,7 +78,7 @@ dq.get = {
                     if (getMonth(fromDate) !== undefined) {
 
                         if(getYear(toDate) !== getYear(fromDate)){
-                            
+
                             let yrRange = ((Number(getYear(toDate)) - Number(getYear(fromDate))) * 12 + 12)
                             
                             for (let a = months.indexOf(getMonth(fromDate)) + 1; a <= yrRange; a++) {
@@ -146,11 +148,42 @@ dq.get = {
                         }
                     }
                 }
+            },
+            first: day => {
+                console.log(day)
+                return {
+                    in: (args) => {
+                        console.log(args)
+                    },
+                    from: (fromDate) => {
+                        console.log(fromDate)
+                        return {
+                            to: (toDate) => {
+                                console.log(toDate)
+                            }
+                        }
+                    }
+                }
+            },
+            last: day => {
+                console.log(day)
+                return {
+                    in: (args) => {
+                        console.log(args)
+                    },
+                    from: (fromDate) => {
+                        console.log(fromDate)
+                        return {
+                            to: (toDate) => {
+                                console.log(toDate)
+                            }
+                        }
+                    }
+                }
             }
         }
     }
 }
 
-let a = dq.get.all('sat').from('dec 2020').to('mar 2022')
-console.log(a)
+
 module.exports = dq;

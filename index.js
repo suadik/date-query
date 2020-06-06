@@ -74,9 +74,23 @@ dq.get = {
                 let fromRslt = []
                 let fromDaysInYear = 0;
                 
+
+                let f = toDate => {
+                    if (getMonth(fromDate) === undefined) {
+                        let yrRange = ((Number(getYear(toDate)) - Number(getYear(fromDate))) * 12 + 12)
+                        for (let a = 1; a <= yrRange; a++) {
+                            fromDaysInYear += moment(`${getYear(fromDate)} - 0${a}`, "YYYY-MM").daysInMonth();
+                        }
+                        for (let i = 1; i < fromDaysInYear; i += 1) {
+                            if (new Date(new Date(startDate(getYear(fromDate))).setDate(i)).getDay() === days.indexOf(day)) {
+                                fromRslt.push(moment(new Date(new Date(startDate(getYear(fromDate))).setDate(i))).format('YYYY-MM-DD'));
+                            }
+                        }
+                    }
+                }
+
                 let g = (toDate) => {
                     if (getMonth(fromDate) !== undefined) {
-
                         if(getYear(toDate) !== getYear(fromDate)){
 
                             let yrRange = ((Number(getYear(toDate)) - Number(getYear(fromDate))) * 12 + 12)
@@ -96,20 +110,6 @@ dq.get = {
                     }
                 }
 
-                let f = toDate => {
-                    if (getMonth(fromDate) === undefined) {
-                        let yrRange = ((Number(getYear(toDate)) - Number(getYear(fromDate))) * 12 + 12)
-                        for (let a = 1; a <= yrRange; a++) {
-                            fromDaysInYear += moment(`${getYear(fromDate)} - 0${a}`, "YYYY-MM").daysInMonth();
-                        }
-                        for (let i = 1; i < fromDaysInYear; i += 1) {
-                            if (new Date(new Date(startDate(getYear(fromDate))).setDate(i)).getDay() === days.indexOf(day)) {
-                                fromRslt.push(moment(new Date(new Date(startDate(getYear(fromDate))).setDate(i))).format('YYYY-MM-DD'));
-                            }
-                        }
-                    }
-                }
-
                 return {
                     to: toDate => {
                         if(getYear(fromDate) > getYear(toDate)){
@@ -117,6 +117,22 @@ dq.get = {
                         }
                         let toRslt = []
                         let toDaysInYear = 0;
+
+                        if (getMonth(fromDate) === undefined && getMonth(toDate) !== undefined){
+                            let yrRange = ((Number(getYear(toDate)) - Number(getYear(fromDate))) * 12 + 12)
+                            console.log(getYear(fromDate))
+                            for (let a = 1; a <= yrRange; a++) {
+                                fromDaysInYear += moment(`${getYear(fromDate)} - 0${a}`, "YYYY-MM").daysInMonth();
+                            }
+
+                            for (let i = 1; i < fromDaysInYear; i += 1) {
+
+                                if (new Date(new Date(new Date(startDate(getYear(fromDate))).setMonth(months.indexOf(getMonth(fromDate)))).setDate(i)).getDay() === days.indexOf(day)) {
+                                    fromRslt.push(moment(new Date(new Date(new Date(startDate(getYear(fromDate)))).setDate(i))).format('YYYY-MM-DD'));
+                                }
+                            }
+                            return fromRslt.filter(a => a <= endDate(months.indexOf(getMonth(toDate)), getYear(toDate)))
+                        }
 
                         if (getMonth(toDate) !== undefined) {
 

@@ -1,29 +1,14 @@
 'use strict';
 
 const moment = require('moment');
-
+const getMonth = require('./utils/get-month')
+const getYear = require('./utils/get-year')
+const startDate = require('./utils/start-date')
+const endDate = require('./utils/end-date')
 const dq = {};
 
 const days = ['sun','mon','tue','wed','thu','fri','sat'];
 const months = ['jan','feb','mar','apr','may','jun','jul','aug','sep','oct','nov','dec']
-
-
-const getMonth = arg => {
-    if (typeof arg !== 'string') {
-        throw { error: 'arg should be a string' };
-    }
-    return arg.split(' ').length > 1 ? arg.split(' ')[0] : undefined;
-}
-
-const getYear = arg => { 
-    if (typeof arg !== 'string') {
-        throw { error: 'arg should be a string' };
-    }
-    return arg.split(' ').length > 1 ? arg.split(' ')[1] : arg.split(' ').length === 1 ? arg.split(' ')[0] : arg.split(' ')[0];
-}
-
-const startDate = year => moment(year).startOf('month').format("YYYY-MM-DD");
-const endDate = (month,year) => moment(year).add(month, 'months').endOf("month").format("YYYY-MM-DD");
 
 dq.get = {
     all: day => {
@@ -151,8 +136,6 @@ dq.get = {
                                 }
                             } else {
 
-                                // let yrRange = ((Number(getYear(toDate)) - Number(getYear(fromDate))) * 12 + 12)
-
                                 for (let a = months.indexOf(getMonth(fromDate)) + 1; a <= 12; a++) {
                                     fromDaysInYear += moment(`${getYear(fromDate)} - 0${a}`, "YYYY-MM").daysInMonth();
                                 }
@@ -193,6 +176,11 @@ dq.get = {
 
                         } else {
                             f(toDate)
+                        }
+
+                        if(getMonth(fromDate) === undefined && getMonth(toDate) === undefined){
+                            g(toDate)
+                            return fromRslt;
                         }
                     }
                 }

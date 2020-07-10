@@ -7,7 +7,11 @@
     "moment": "^2.26.0"
   },
   "publishConfig": {
-    "registry": "https://npm.pkg.github.com/"
+    "registry": "https://registry.npmjs.org/"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/suadik/date-query.git"
   },
   "devDependencies": {},
   "scripts": {
@@ -16,7 +20,9 @@
   "keywords": [
     "date",
     "date-query",
-    "js-dates"
+    "js-dates",
+    "date-sql",
+    "date-querying"
   ],
   "author": "abdul suadik mohammed",
   "license": "MIT"

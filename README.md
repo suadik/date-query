@@ -10,7 +10,7 @@ In Nodejs
 const dq = require('date-query') 
 ```
 
-Without specifying any month
+**Without specifying any month**
 ``` 
 const a = dq.get.all('tue').in('2020')
 
@@ -22,7 +22,7 @@ console.log(a)
 ]
 ```
 
-With month specific
+**With month specific**
 ``` 
 const a = dq.get.all('tue').in('mar 2020')
 
@@ -30,22 +30,22 @@ console.log(a)
 [ '2020-03-03', '2020-03-10', '2020-03-17', '2020-03-24' ]
 ```
 
-Year range without specifying any month
+**Year range without specifying any month**
 ``` 
 const a = dq.get.all('tue').from('2019').to('2020')
 ```
 
-Year range, specifying beginning month 
+**Year range, specifying beginning month**
 ``` 
 const a = dq.get.all('tue').from('feb 2019').to('2020')
 ```
 
-Year range, specifying ending month 
+**Year range, specifying ending month**
 ``` 
 const a = dq.get.all('tue').from('2019').to('mar 2020')
 ```
 
-Year range, specifying beginning and ending months 
+**Year range, specifying beginning and ending months**
 ``` 
 const a = dq.get.all('tue').from('feb 2019').to('jun 2020')
 ```

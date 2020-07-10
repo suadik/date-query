@@ -8,8 +8,10 @@ In Nodejs
 
 ``` 
 const dq = require('date-query') 
+```
 
-let a = dq.get.all('tue').in('2020')
+``` 
+const a = dq.get.all('tue').in('2020')
 
 console.log(a)
 [
@@ -32,6 +34,5 @@ console.log(a)
   '2020-12-08', '2020-12-15', '2020-12-22',
   '2020-12-29'
 ]
-
 
 ```

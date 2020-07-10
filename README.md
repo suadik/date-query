@@ -4,3 +4,9 @@ Date Query is a small Javascript library for querying dates. If you have ever co
 # Installation
 `npm i date-query --save`
 
+In Nodejs
+
+``` 
+const dq = require('date-query') 
+
+```

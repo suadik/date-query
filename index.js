@@ -189,5 +189,4 @@ dq.get = {
     }
 }
 
-
 module.exports = dq;

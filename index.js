@@ -184,6 +184,63 @@ dq.get = {
                         }
                     }
                 }
+            },
+            first: day => {
+                console.log(day)
+                return {
+                    in: (arg) => {
+                        if (getMonth(arg) !== undefined) {
+                            let daysInMnth = moment(`${getYear(arg)} - 0${months.indexOf(getMonth(arg)) + 1}`, "YYYY-MM").daysInMonth();
+                            let rslt = []
+                            for (let i = 1; i < daysInMnth; i += 1) {
+                                if (new Date(new Date(new Date(startDate(getYear(arg))).setMonth(months.indexOf(getMonth(arg)))).setDate(i)).getDay() === days.indexOf(day)) {
+                                    console.log('...',months.indexOf(getMonth(arg)))
+                                    rslt.push(moment(new Date(new Date(new Date(startDate(getYear(arg))).setMonth(months.indexOf(getMonth(arg)))).setDate(i))).format('YYYY-MM-DD'));
+                                }
+                            }
+                            return rslt;
+                        } else {
+                            let daysInYear = 0;
+
+                            for (let a = 1; a <= 12; a++) {
+                                daysInYear += moment(`${getYear(arg)} - 0${a}`, "YYYY-MM").daysInMonth();
+                            }
+
+                            let rslt = []
+                            for (let i = 1; i < daysInYear; i += 1) {
+                                if (new Date(new Date(startDate(getYear(arg))).setDate(i)).getDay() === days.indexOf(day)) {
+                                    console.log('...',months.indexOf(getMonth(arg)))
+                                    rslt.push(moment(new Date(new Date(startDate(getYear(arg))).setDate(i))).format('YYYY-MM-DD'));
+                                }
+                            }
+                            return rslt;
+                        }
+                    },
+                    from: (fromDate) => {
+                        console.log(fromDate)
+                        return {
+                            to: (toDate) => {
+                                console.log(toDate)
+                            }
+                        }
+                    }
+                }
+            },
+            last: day => {
+                console.log(day)
+                return {
+                    in: (args) => {
+                        console.log(args)
+                    },
+                    from: (fromDate) => {
+                        console.log(fromDate)
+                        return {
+                            to: (toDate) => {
+                                console.log(toDate)
+                            }
+                        }
+                    }
+                }
             }
         }
     }

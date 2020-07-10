@@ -1,5 +1,5 @@
 # Date-Query
-Date Query is a small Javascript library for querying dates. If you have ever considered range of dates to be a mini database, then date-query will help you query them and get you results just like SQL does.
+Date Query is a small Javascript library for querying dates. If you have ever considered range of dates to be a mini database, then **date-query** will help you query them and get you results just like SQL does.
 
 # Installation
 `npm i date-query --save`
@@ -10,6 +10,7 @@ In Nodejs
 const dq = require('date-query') 
 ```
 
+Without specifying any month
 ``` 
 const a = dq.get.all('tue').in('2020')
 
@@ -17,22 +18,34 @@ console.log(a)
 [
   '2020-01-07', '2020-01-14', '2020-01-21',
   '2020-01-28', '2020-02-04', '2020-02-11',
-  '2020-02-18', '2020-02-25', '2020-03-03',
-  '2020-03-10', '2020-03-17', '2020-03-24',
-  '2020-03-31', '2020-04-07', '2020-04-14',
-  '2020-04-21', '2020-04-28', '2020-05-05',
-  '2020-05-12', '2020-05-19', '2020-05-26',
-  '2020-06-02', '2020-06-09', '2020-06-16',
-  '2020-06-23', '2020-06-30', '2020-07-07',
-  '2020-07-14', '2020-07-21', '2020-07-28',
-  '2020-08-04', '2020-08-11', '2020-08-18',
-  '2020-08-25', '2020-09-01', '2020-09-08',
-  '2020-09-15', '2020-09-22', '2020-09-29',
-  '2020-10-06', '2020-10-13', '2020-10-20',
-  '2020-10-27', '2020-11-03', '2020-11-10',
-  '2020-11-17', '2020-11-24', '2020-12-01',
-  '2020-12-08', '2020-12-15', '2020-12-22',
-  '2020-12-29'
+  '2020-02-18', '2020-02-25', ...
 ]
+```
 
+With month specific
+``` 
+const a = dq.get.all('tue').in('mar 2020')
+
+console.log(a)
+[ '2020-03-03', '2020-03-10', '2020-03-17', '2020-03-24' ]
+```
+
+Year range without specifying any month
+``` 
+const a = dq.get.all('tue').from('2019').to('2020')
+```
+
+Year range, specifying beginning month 
+``` 
+const a = dq.get.all('tue').from('feb 2019').to('2020')
+```
+
+Year range, specifying ending month 
+``` 
+const a = dq.get.all('tue').from('2019').to('mar 2020')
+```
+
+Year range, specifying beginning and ending months 
+``` 
+const a = dq.get.all('tue').from('feb 2019').to('jun 2020')
 ```

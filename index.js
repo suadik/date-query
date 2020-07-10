@@ -184,38 +184,6 @@ dq.get = {
                         }
                     }
                 }
-            },
-            first: day => {
-                console.log(day)
-                return {
-                    in: (args) => {
-                        console.log(args)
-                    },
-                    from: (fromDate) => {
-                        console.log(fromDate)
-                        return {
-                            to: (toDate) => {
-                                console.log(toDate)
-                            }
-                        }
-                    }
-                }
-            },
-            last: day => {
-                console.log(day)
-                return {
-                    in: (args) => {
-                        console.log(args)
-                    },
-                    from: (fromDate) => {
-                        console.log(fromDate)
-                        return {
-                            to: (toDate) => {
-                                console.log(toDate)
-                            }
-                        }
-                    }
-                }
             }
         }
     }

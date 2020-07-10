@@ -2,12 +2,12 @@
 Date Query is a small Javascript library for querying dates. If you have ever considered range of dates to be a mini database, then **date-query** will help you query them and get you results just like SQL does.
 
 # Installation
-`npm i date-query --save`
+`npm i dates-query --save`
 
 In Nodejs
 
 ``` 
-const dq = require('date-query') 
+const dq = require('dates-query') 
 ```
 
 **Without specifying any month**

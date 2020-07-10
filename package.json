@@ -1,5 +1,5 @@
 {
-  "name": "date-query",
+  "name": "dates-query",
   "version": "1.0.0",
   "description": "\"Querying dates\"",
   "main": "index.js",
@@ -18,11 +18,11 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [
-    "date",
-    "date-query",
+    "dates",
+    "dates-query",
     "js-dates",
-    "date-sql",
-    "date-querying"
+    "dates-sql",
+    "dates-querying"
   ],
   "author": "abdul suadik mohammed",
   "license": "MIT"

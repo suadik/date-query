@@ -4,7 +4,7 @@
   "description": "\"Querying dates\"",
   "main": "index.js",
   "dependencies": {
-    "moment": "^2.26.0"
+    "moment": "^2.29.4"
   },
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
